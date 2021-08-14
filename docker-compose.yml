@@ -1,0 +1,68 @@
+version: "3.9"  # optional since v1.27.0
+services:
+  redis-ms1:
+    image: redis
+    networks:
+      cluster:
+        ipv4_address: 172.23.0.2
+    volumes:
+      - ./conf:/usr/local/etc/redis
+    ports:
+      - "6379:6379"
+    command: ["redis-server","/usr/local/etc/redis/redis-ms1.conf"]
+  redis-ms2:
+    image: redis
+    networks:
+      cluster:
+        ipv4_address: 172.23.0.3
+    ports:
+      - "6378:6379"
+    volumes:
+      - ./conf:/usr/local/etc/redis
+    command: ["redis-server","/usr/local/etc/redis/redis-ms1.conf"]
+  redis-ms3:
+    image: redis
+    networks:
+      cluster:
+        ipv4_address: 172.23.0.4
+    ports:
+      - "6377:6379"
+    volumes:
+      - ./conf:/usr/local/etc/redis
+    command: ["redis-server","/usr/local/etc/redis/redis-ms1.conf"]
+  redis-ms4:
+    image: redis
+    networks:
+      cluster:
+        ipv4_address: 172.23.0.5
+    ports:
+      - "6376:6379"
+    volumes:
+      - ./conf:/usr/local/etc/redis
+    command: ["redis-server","/usr/local/etc/redis/redis-ms1.conf"]
+  redis-ms5:
+    image: redis
+    networks:
+      cluster:
+        ipv4_address: 172.23.0.6
+    ports:
+      - "6375:6379"
+    volumes:
+      - ./conf:/usr/local/etc/redis
+    command: ["redis-server","/usr/local/etc/redis/redis-ms1.conf"]
+  redis-ms6:
+    image: redis
+    networks:
+      cluster:
+        ipv4_address: 172.23.0.7
+    ports:
+      - "6374:6379"
+    volumes:
+      - ./conf:/usr/local/etc/redis
+    command: ["redis-server","/usr/local/etc/redis/redis-ms1.conf"]
+
+networks:
+  cluster:
+    ipam:
+      config:
+       - subnet: 172.23.0.0/24
